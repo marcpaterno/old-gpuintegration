@@ -195,6 +195,7 @@ namespace {
                     std::array<double, N> const& ys,
                     std::array<double, (N - 1) * (M - 1)> const& zs)
   {
+    printf("Make interp2D_aux M:%i N:%i\n", M, N);
     return {make_short_vec(xs), make_short_vec(ys), make_vec(zs)};
   }
 

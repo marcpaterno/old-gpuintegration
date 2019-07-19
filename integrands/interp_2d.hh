@@ -4,7 +4,7 @@
 #include "point_3d.hh"
 
 #include "gsl/gsl_interp2d.h"
-#include "/cosmosis/cosmosis/datablock/ndarray.hh"
+//#include "/cosmosis/cosmosis/datablock/ndarray.hh"
 #include <array>
 #include <cstddef>
 #include <iostream>
@@ -52,7 +52,7 @@ namespace y3_cluster {
              std::vector< std::vector<double> > const& zs);
 
     // Like above - assumes ndarray is 2D and fits it appropriately
-    Interp2D(std::vector<double> const& xs,
+    /*Interp2D(std::vector<double> const& xs,
              std::vector<double> const& ys,
              cosmosis::ndarray<double> const& zs)
         : Interp2D(xs, ys, std::vector<double>{zs.begin(), zs.end()}) {
@@ -64,8 +64,7 @@ namespace y3_cluster {
                   << "zs.shape[0] = " << zs.extents()[0] << "\n";
         throw std::domain_error("Interp2D -- ndarray wrong dimensions");
       }
-    }
-
+      }*/
 
     // Interpolator created from vector of triplets: throws std::logic_error if
     // the points do not lie on a grid in (x,y) space, or if any values are NaN

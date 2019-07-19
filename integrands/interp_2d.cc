@@ -18,8 +18,9 @@ y3_cluster::Interp2D::operator()(double x, double y) const
   // We do not use the accelerator features of GSL interpolation, because we
   // do not expect that the pattern of calls will be such that it will help.
   // Profile the resulting integration routine to see if this should be changed.
-  return gsl_interp2d_eval_extrap(
-    interp_, xs_.data(), ys_.data(), zs_.data(), x, y, nullptr, nullptr);
+  
+  return gsl_interp2d_eval_extrap(interp_, xs_.data(), ys_.data(), zs_.data(), 
+				  x, y, nullptr, nullptr);
 }
 
 y3_cluster::Interp2D::~Interp2D() noexcept
@@ -30,6 +31,7 @@ y3_cluster::Interp2D::~Interp2D() noexcept
 void
 y3_cluster::Interp2D::make_grid_(std::vector<Point3D>& data)
 {
+  printf("making grid\n");
   if (data.empty())
     throw std::domain_error("Interp2D -- no points provided");
   // Discover the (x,y) grid implied by the points we are given -- or reject

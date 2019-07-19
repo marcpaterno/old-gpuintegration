@@ -1,0 +1,88 @@
+ample_variance.hh:      , hubble(get_datablock<double>(sample, "cosmological_parameters", "h0"))
+mor_t.hh:    explicit MOR_t(cosmosis::DataBlock& sample)
+t_cen_t.hh:#include "/cosmosis/cosmosis/datablock/datablock.hh"
+77;30001;0ct_cen_t.hh:      explicit T_CEN_t(cosmosis::DataBlock&) {}
+ndarray.hh:namespace cosmosis {
+ndarray.hh:  class NDArrayIndexException : public cosmosis::Exception {
+ndarray.hh:cosmosis::ndarray<T>::ndarray(T const* data, int ndims, int const* extents)
+ndarray.hh:cosmosis::ndarray<T>::ndarray(std::vector<T> vals,
+ndarray.hh:cosmosis::ndarray<T>::ndims() const
+ndarray.hh:cosmosis::ndarray<T>::operator==(ndarray<T> const& other) const
+ndarray.hh:typename cosmosis::ndarray<T>::const_iterator
+ndarray.hh:cosmosis::ndarray<T>::cbegin() const
+ndarray.hh:typename cosmosis::ndarray<T>::iterator
+ndarray.hh:cosmosis::ndarray<T>::begin()
+ndarray.hh:typename cosmosis::ndarray<T>::const_iterator
+ndarray.hh:cosmosis::ndarray<T>::begin() const
+ndarray.hh:typename cosmosis::ndarray<T>::const_iterator
+ndarray.hh:cosmosis::ndarray<T>::cend() const
+ndarray.hh:typename cosmosis::ndarray<T>::iterator
+ndarray.hh:cosmosis::ndarray<T>::end()
+ndarray.hh:typename cosmosis::ndarray<T>::const_iterator
+ndarray.hh:cosmosis::ndarray<T>::end() const
+ndarray.hh:cosmosis::ndarray<T>::extents() const
+ndarray.hh:cosmosis::ndarray<T>::size() const
+ndarray.hh:cosmosis::ndarray<T>::operator()(Args... indices)
+ndarray.hh:cosmosis::ndarray<T>::operator()(Args... indices) const
+ndarray.hh:cosmosis::ndarray<T>::get_index(Args... indices)
+a_mis_t.hh:#include "/cosmosis/cosmosis/datablock/datablock.hh"
+a_mis_t.hh:      explicit A_MIS_t(cosmosis::DataBlock&) {}
+ez.hh:    explicit EZ(cosmosis::DataBlock& sample)
+ez.hh:      : EZ(get_datablock<double>(sample, "cosmological_parameters", "omega_m"),
+ez.hh:           get_datablock<double>(sample, "cosmological_parameters", "omega_lambda"),
+ez.hh:           get_datablock<double>(sample, "cosmological_parameters", "omega_k"))
+lo_lc_t.hh:    explicit LO_LC_t(cosmosis::DataBlock& sample)
+hmf_t.hh:#include "/cosmosis/cosmosis/datablock/datablock.hh"
+hmf_t.hh:#include "/cosmosis/cosmosis/datablock/ndarray.hh"
+hmf_t.hh:#include "/cosmosis/cosmosis/datablock/section_names.h"
+hmf_t.hh:      _adjust_to_log(cosmosis::DataBlock& db, const std::vector<double>& masses)
+hmf_t.hh:          double omega_m = get_datablock<double>(db, "cosmological_parameters", "omega_M");
+hmf_t.hh:          double omega_mu = get_datablock<double>(db, "cosmological_parameters", "omega_nu");
+hmf_t.hh:    explicit HMF_t(cosmosis::DataBlock& sample)
+hmf_t.hh:                  get_datablock<cosmosis::ndarray<double>>(sample, "mass_function", "dndlnmh")))
+del_sig_tom.hh:#include "/cosmosis/cosmosis/datablock/datablock.hh"
+del_sig_tom.hh:#include "/cosmosis/cosmosis/datablock/ndarray.hh"
+del_sig_tom.hh:    explicit DEL_SIG_TOM(cosmosis::DataBlock& sample)
+del_sig_tom.hh:          get_datablock<cosmosis::ndarray<double>>(sample, "deltasigma", "deltasigma_1")))
+del_sig_tom.hh:          get_datablock<cosmosis::ndarray<double>>(sample, "deltasigma", "deltasigma_2")))
+del_sig_tom.hh:          get_datablock<cosmosis::ndarray<double>>(sample, "deltasigma", "bias")))
+a_cen_t.hh:#include "/cosmosis/cosmosis/datablock/datablock.hh"
+a_cen_t.hh:      explicit A_CEN_t(cosmosis::DataBlock&) {}
+del_sig_t.hh:#include "/cosmosis/cosmosis/datablock/datablock.hh"
+del_sig_t.hh:    // TODO: This needs to be reading cosmosis datablock parameters
+del_sig_t.hh:    explicit DEL_SIG_t(cosmosis::DataBlock& sample)
+del_sig_sum.hh:#include "/cosmosis/cosmosis/datablock/datablock.hh"
+del_sig_sum.hh:#include "/cosmosis/cosmosis/datablock/ndarray.hh"
+del_sig_sum.hh:    explicit DEL_SIG_TOM(cosmosis::DataBlock& sample)
+del_sig_sum.hh:          get_datablock<cosmosis::ndarray<double>>(sample, "deltasigma", "deltasigma_1")))
+del_sig_sum.hh:          get_datablock<cosmosis::ndarray<double>>(sample, "deltasigma", "deltasigma_2")))
+del_sig_sum.hh:          get_datablock<cosmosis::ndarray<double>>(sample, "deltasigma", "bias")))
+t_mis_t.hh:#include "/cosmosis/cosmosis/datablock/datablock.hh"
+t_mis_t.hh:      explicit T_MIS_t(cosmosis::DataBlock&) {}
+weighted_sigma_crit_inv.hh:#include "/cosmosis/cosmosis/datablock/datablock.hh"
+weighted_sigma_crit_inv.hh:        explicit weighted_sigma_crit_inv(cosmosis::DataBlock& sample,
+omega_z_sdss.hh:#include "/cosmosis/cosmosis/datablock/datablock.hh"
+omega_z_sdss.hh:    OMEGA_Z_SDSS(cosmosis::DataBlock&) {}
+del_sig_y1.hh:#include "/cosmosis/cosmosis/datablock/datablock.hh"
+del_sig_y1.hh:    DEL_SIG_y1(const cosmosis::DataBlock&) {}
+ez_sq.hh:      // NOTE: this is valid only for \Lambda CDM cosmology, not wCDM
+interp_2d.hh:#include "/cosmosis/cosmosis/datablock/ndarray.hh"
+interp_2d.hh:             cosmosis::ndarray<double> const& zs);
+interp_2d.hh:             cosmosis::ndarray<double> const& zs)
+exceptions.hh:namespace cosmosis
+exceptions.hh:  // This is the base class for all exceptions thrown by cosmosis
+sigma_crit_inverse_t.hh:#include "/cosmosis/cosmosis/datablock/datablock.hh"
+sigma_crit_inverse_t.hh:    explicit sigma_crit_inv(cosmosis::DataBlock& sample)
+int_zo_zt_t.hh:    explicit INT_ZO_ZT_t(cosmosis::DataBlock& sample)
+pzsource_gaussian_t.hh:    explicit PZSOURCE_GAUSSIAN_t(cosmosis::DataBlock& sample, T)
+pzsource_t.hh:    explicit PZSOURCE_t(cosmosis::DataBlock& sample,
+dv_do_dz_t.hh:    explicit DV_DO_DZ_t(cosmosis::DataBlock& sample)
+dv_do_dz_t.hh:      , _h(get_datablock<double>(sample, "cosmological_parameters", "h0"))
+mor_t2.hh:#include "/cosmosis/cosmosis/datablock/datablock.hh"
+mor_t2.hh:    explicit MOR_t2(cosmosis::DataBlock& sample)
+hmb_t.hh:#include "/cosmosis/cosmosis/datablock/datablock.hh"
+hmb_t.hh:#include "/cosmosis/cosmosis/datablock/ndarray.hh"
+hmb_t.hh:    explicit HMB_t(cosmosis::DataBlock& sample)
+hmb_t.hh:                       get_datablock<cosmosis::ndarray<double>>(sample, "tinker_bias_function", "bias")))
+roffset_t.hh:    explicit ROFFSET_t(cosmosis::DataBlock& sample)
+n

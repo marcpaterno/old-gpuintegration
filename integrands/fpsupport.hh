@@ -2,7 +2,7 @@
 #define Y3_CLUSTER_FPSUPPORT_HH
 
 #include <cmath>
-
+#include <algorithm>
 namespace fpsupport {
 
   inline bool
