@@ -1,0 +1,19 @@
+EXECUTABLE      := output
+CUFILES         := test.cu
+NVCC            := /usr/local/cuda-10.0/bin/nvcc
+NVCCFLAGS       := -arch=sm_70
+CCFLAGS         := --expt-relaxed-constexpr -std=c++14
+INCLUDE         :=
+LIBS            :=  -L/usr/local/gcc-6.4.0/lib
+
+
+export LD_LIBRARY_PATH=/usr/local/gcc-6.4.0/lib:/usr/local/gcc-6.4.0/lib64
+
+
+${EXECUTABLE}: ${CUFILES}
+         ${NVCC} -x cu -o ${EXECUTABLE} ${INCLUDE} ${LIBS} ${CCFLAGS} ${CUFILES}
+clean:
+        -$(RM)  ${EXECUTABLE}\
+        *.o *.*log
+run:
+        ./output
