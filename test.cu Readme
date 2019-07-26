@@ -1,0 +1,5 @@
+Due to the absence of modules, export the following
+
+export PATH=/usr/local/gcc-6.4.0/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/gcc-6.4.0/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/usr/local/gcc-6.4.0/lib64:$LD_LIBRARY_PATH
