@@ -47,7 +47,7 @@ namespace quad{
 	
     ~GPUcuhre(){
       if(VERBOSE){
-	sprintf(msg, "GPUcuhre Destructur");
+	sprintf(msg, "GPUcuhre Destructor");
 	Print(msg);
       } 
       delete kernel;
