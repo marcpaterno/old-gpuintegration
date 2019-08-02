@@ -7,15 +7,15 @@ namespace y3_cluster {
 
   class A_MIS_t {
   public:
-      A_MIS_t() {}
-      explicit A_MIS_t(cosmosis::DataBlock&) {}
+    A_MIS_t() {}
+    explicit A_MIS_t(cosmosis::DataBlock&) {}
 
-      double
-      operator()(double, double, double, double, double) const
-      {
-        // Will update with a model eventually!
-        return 1.0;
-      }
+    double
+    operator()(double, double, double, double, double) const
+    {
+      // Will update with a model eventually!
+      return 1.0;
+    }
   };
 
 }

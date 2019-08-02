@@ -1,10 +1,10 @@
 #ifndef Y3_CLUSTER_DV_DO_DZ_T_HH
 #define Y3_CLUSTER_DV_DO_DZ_T_HH
 
-#include "utils/datablock_reader.hh"
-#include "utils/read_vector.hh"
-#include "utils/interp_1d.hh"
 #include "ez.hh"
+#include "utils/datablock_reader.hh"
+#include "utils/interp_1d.hh"
+#include "utils/read_vector.hh"
 
 #include <memory>
 #include <vector>
@@ -20,11 +20,11 @@ namespace y3_cluster {
 
     explicit DV_DO_DZ_t(cosmosis::DataBlock& sample)
       : _da(std::make_shared<y3_cluster::Interp1D const>(
-                     get_datablock<doubles>(sample, "distances", "z"),
-                     get_datablock<doubles>(sample, "distances", "d_a")))
+          get_datablock<doubles>(sample, "distances", "z"),
+          get_datablock<doubles>(sample, "distances", "d_a")))
       , _ezt(y3_cluster::EZ(sample))
       , _h(get_datablock<double>(sample, "cosmological_parameters", "h0"))
-      {}
+    {}
 
     double
     operator()(double zt) const
@@ -32,7 +32,8 @@ namespace y3_cluster {
       double const da_z = _da->eval(zt); // da_z needs to be in Mpc
       // Units: (Mpc/h)^3
       // 2997.92 is Hubble distance, c/H_0
-      return 2997.92 * (1.0 + zt) * (1.0 + zt) * da_z*_h * da_z*_h / _ezt(zt);
+      return 2997.92 * (1.0 + zt) * (1.0 + zt) * da_z * _h * da_z * _h /
+             _ezt(zt);
     }
 
   private:

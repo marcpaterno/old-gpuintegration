@@ -10,12 +10,16 @@ namespace y3_cluster {
   class PZSOURCE_GAUSSIAN_t {
   public:
     // TODO take in pzsource distributions
-    explicit PZSOURCE_GAUSSIAN_t(double zbin, double sigma) : _zbin(zbin), _sigma(sigma) {}
+    explicit PZSOURCE_GAUSSIAN_t(double zbin, double sigma)
+      : _zbin(zbin), _sigma(sigma)
+    {}
 
-    template<typename T>
+    template <typename T>
     explicit PZSOURCE_GAUSSIAN_t(cosmosis::DataBlock& sample, T)
-      : _zbin(get_datablock<double>(sample, "cluster_abundance", "pzsource_zbin"))
-      , _sigma(get_datablock<double>(sample, "cluster_abundance", "pzsource_sigma"))
+      : _zbin(
+          get_datablock<double>(sample, "cluster_abundance", "pzsource_zbin"))
+      , _sigma(
+          get_datablock<double>(sample, "cluster_abundance", "pzsource_sigma"))
     {}
 
     double

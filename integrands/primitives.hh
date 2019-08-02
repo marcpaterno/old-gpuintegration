@@ -1,7 +1,7 @@
 #ifndef Y3_CLUSTER_CPP_PRIMITIVES_HH
 #define Y3_CLUSTER_CPP_PRIMITIVES_HH
 
-//include <polynomial.hh>
+// include <polynomial.hh>
 
 #include <cmath>
 #include <fstream>
@@ -10,12 +10,16 @@
 
 namespace y3_cluster {
 
-  inline double  pi() {
-    return 4. * std::atan(1.0); 
+  inline double
+  pi()
+  {
+    return 4. * std::atan(1.0);
   };
 
-  inline double invsqrt2pi() { 
-    return 1. / std::sqrt(2. * pi()); 
+  inline double
+  invsqrt2pi()
+  {
+    return 1. / std::sqrt(2. * pi());
   };
 
   inline double

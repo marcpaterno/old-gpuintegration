@@ -9,7 +9,7 @@
 
 namespace y3_cluster {
 
-// Anonymous namespace; implementation details in here.
+  // Anonymous namespace; implementation details in here.
   namespace {
 
     // Helper function for y3_cluster::transform
@@ -55,14 +55,12 @@ namespace y3_cluster {
     }
   }
 
-
-
   template <typename R, typename T>
   std::vector<R>
-  transform  (std::vector<T> const &in,  std::function <R (T const &)> f)
+  transform(std::vector<T> const& in, std::function<R(T const&)> f)
   {
-    auto  ret  =  std::vector<R>  (in.size ());
-    std::transform  (begin (in),  end (in),  begin (ret),  f);
+    auto ret = std::vector<R>(in.size());
+    std::transform(begin(in), end(in), begin(ret), f);
     return ret;
   }
 

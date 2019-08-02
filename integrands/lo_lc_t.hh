@@ -15,10 +15,12 @@ namespace y3_cluster {
     {}
 
     explicit LO_LC_t(cosmosis::DataBlock& sample)
-      : _alpha(get_datablock<double>(sample, "cluster_abundance", "LO_LC_alpha"))
+      : _alpha(
+          get_datablock<double>(sample, "cluster_abundance", "LO_LC_alpha"))
       , _a(get_datablock<double>(sample, "cluster_abundance", "LO_LC_a"))
       , _b(get_datablock<double>(sample, "cluster_abundance", "LO_LC_b"))
-      , _R_lambda(get_datablock<double>(sample, "cluster_abundance", "LO_LC_R_lambda"))
+      , _R_lambda(
+          get_datablock<double>(sample, "cluster_abundance", "LO_LC_R_lambda"))
     {}
 
     double

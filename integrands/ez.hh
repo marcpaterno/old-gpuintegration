@@ -15,9 +15,10 @@ namespace y3_cluster {
 
     /* explicit EZ(cosmosis::DataBlock& sample)
       : EZ(get_datablock<double>(sample, "cosmological_parameters", "omega_m"),
-           get_datablock<double>(sample, "cosmological_parameters", "omega_lambda"),
-           get_datablock<double>(sample, "cosmological_parameters", "omega_k"))
-	   {}*/
+           get_datablock<double>(sample, "cosmological_parameters",
+      "omega_lambda"), get_datablock<double>(sample, "cosmological_parameters",
+      "omega_k"))
+           {}*/
 
     double
     operator()(double z) const

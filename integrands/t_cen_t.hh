@@ -7,15 +7,15 @@ namespace y3_cluster {
 
   class T_CEN_t {
   public:
-      T_CEN_t() {}
-      explicit T_CEN_t(cosmosis::DataBlock&) {}
+    T_CEN_t() {}
+    explicit T_CEN_t(cosmosis::DataBlock&) {}
 
-      double
-      operator()(double, double) const
-      {
-        // Will update with a model eventually!
-        return 1.0;
-      }
+    double
+    operator()(double, double) const
+    {
+      // Will update with a model eventually!
+      return 1.0;
+    }
   };
 }
 
