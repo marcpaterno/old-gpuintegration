@@ -4,85 +4,93 @@
 
 using namespace quad;
 
-template<class T> 
-class LC_LT_t{
- public:
-  
+template <class T>
+class LC_LT_t {
+public:
   typename T::Interp2D tau_interp;
   typename T::Interp2D mu_interp;
   typename T::Interp2D sigma_interp;
   typename T::Interp2D fmsk_interp;
   typename T::Interp2D fprj_interp;
-  
 
   __device__ __host__ ~LC_LT_t(){};
 
-  __device__ double operator()(double xx[],int dim) {    
-    
+  __device__ double
+  operator()(double xx[], int dim)
+  {
+
     double f = 0;
-    
-    double lt= xx[0];
+
+    double lt = xx[0];
     double zt = xx[1];
     double lc = xx[2];
-    
-    //printf("lt:%f ylt:%f | lc:%f  ylc:%f | zt:%f yzt:%f\n", lt, ylt, lc, ylc, zt, yzt);
-    //printf("lt:%f zt:%f lc:%f\n", lt, zt, lc);
+
+    // printf("lt:%f ylt:%f | lc:%f  ylc:%f | zt:%f yzt:%f\n", lt, ylt, lc, ylc,
+    // zt, yzt); printf("lt:%f zt:%f lc:%f\n", lt, zt, lc);
     float tau = tau_interp(lt, zt);
-    float mu  = mu_interp(lt, zt);
+    float mu = mu_interp(lt, zt);
     float sigma = sigma_interp(lt, zt);
     float fmsk = fmsk_interp(lt, zt);
     float fprj = fprj_interp(lt, zt);
-    
-    double exptau = exp(tau * (2.0 * mu + tau * sigma * sigma - 2.0 * lc) / 2.0);
+
+    double exptau =
+      exp(tau * (2.0 * mu + tau * sigma * sigma - 2.0 * lc) / 2.0);
     double root_two_sigma = sqrt(2.0) * sigma;
     double mu_tau_sig_sqr = mu + tau * sigma * sigma;
-    
+
     f = (1.0 - fmsk) * (1.0 - fprj) * gaussian(lc, mu, sigma) +
-      0.5 * ((1.0 - fmsk) * fprj * tau + fmsk * fprj / lt) * exptau * erfc_scaled(mu_tau_sig_sqr, lc, root_two_sigma) +
-      0.5 * fmsk / lt * (erfc_scaled(lc, mu, root_two_sigma) - erfc_scaled(lc + lt, mu, root_two_sigma)) -
-      0.5 * fmsk * fprj / lt *(exp(-tau * lt) * exptau * erfc_scaled(mu_tau_sig_sqr, lc + lt, root_two_sigma));
-    
-    
+        0.5 * ((1.0 - fmsk) * fprj * tau + fmsk * fprj / lt) * exptau *
+          erfc_scaled(mu_tau_sig_sqr, lc, root_two_sigma) +
+        0.5 * fmsk / lt *
+          (erfc_scaled(lc, mu, root_two_sigma) -
+           erfc_scaled(lc + lt, mu, root_two_sigma)) -
+        0.5 * fmsk * fprj / lt *
+          (exp(-tau * lt) * exptau *
+           erfc_scaled(mu_tau_sig_sqr, lc + lt, root_two_sigma));
+
     return f;
   }
 
-  __device__ double operator()(double lt, double zt, double lc, int dim) {
+  __device__ double
+  operator()(double lt, double zt, double lc, int dim)
+  {
 
     double f = 0;
 
     /*double lt= xx[0];
     double zt = xx[1];
     double lc = xx[2];*/
-    //printf("lt:%f ylt:%f | lc:%f  ylc:%f | zt:%f yzt:%f\n", lt, ylt, lc, ylc, zt, yzt);
-    //printf("lt:%f zt:%f lc:%f\n", lt, zt, lc);
+    // printf("lt:%f ylt:%f | lc:%f  ylc:%f | zt:%f yzt:%f\n", lt, ylt, lc, ylc,
+    // zt, yzt); printf("lt:%f zt:%f lc:%f\n", lt, zt, lc);
     float tau = tau_interp(lt, zt);
-    float mu  = mu_interp(lt, zt);
+    float mu = mu_interp(lt, zt);
     float sigma = sigma_interp(lt, zt);
     float fmsk = fmsk_interp(lt, zt);
     float fprj = fprj_interp(lt, zt);
 
-    double exptau = exp(tau * (2.0 * mu + tau * sigma * sigma - 2.0 * lc) / 2.0);
+    double exptau =
+      exp(tau * (2.0 * mu + tau * sigma * sigma - 2.0 * lc) / 2.0);
     double root_two_sigma = sqrt(2.0) * sigma;
     double mu_tau_sig_sqr = mu + tau * sigma * sigma;
 
     f = (1.0 - fmsk) * (1.0 - fprj) * gaussian(lc, mu, sigma) +
-      0.5 * ((1.0 - fmsk) * fprj * tau + fmsk * fprj / lt) * exptau * erfc_scaled(mu_tau_sig_sqr, lc,root_two_sigma) +
-      0.5 * fmsk / lt * (erfc_scaled(lc, mu, root_two_sigma) - erfc_scaled(lc + lt, mu, root_two_sigma)) -
-      0.5 * fmsk * fprj / lt *(exp(-tau * lt) * exptau * erfc_scaled(mu_tau_sig_sqr, lc + lt, root_two_sigma));
-
+        0.5 * ((1.0 - fmsk) * fprj * tau + fmsk * fprj / lt) * exptau *
+          erfc_scaled(mu_tau_sig_sqr, lc, root_two_sigma) +
+        0.5 * fmsk / lt *
+          (erfc_scaled(lc, mu, root_two_sigma) -
+           erfc_scaled(lc + lt, mu, root_two_sigma)) -
+        0.5 * fmsk * fprj / lt *
+          (exp(-tau * lt) * exptau *
+           erfc_scaled(mu_tau_sig_sqr, lc + lt, root_two_sigma));
 
     return f;
   }
 
-
-
-
- LC_LT_t()
+  LC_LT_t()
   {
     float tau_arr[] = {
       3.87497099e+00, 2.87383279e+00, 2.89974546e+00, 8.05299747e-01,
-      5.82079679e-01,
-      4.25342329e-01, 3.16631643e-01, 2.31794166e-01,
+      5.82079679e-01, 4.25342329e-01, 3.16631643e-01, 2.31794166e-01,
       1.87431347e-01, 1.68846430e-01, 1.48897918e-01, 1.23155603e-01,
       1.17395703e-01, 9.65549883e-02, 8.12248716e-02, 6.77644921e-02,
       6.49962883e-02, 7.01815650e-02, 8.45228377e-02, 8.64134443e-02,
@@ -109,7 +117,7 @@ class LC_LT_t{
       9.52075683e-02, 8.44257008e-02, 7.10884458e-02, 6.04151374e-02,
       5.41311947e-02, 4.53025254e-02, 4.20917211e-02, 3.90545806e-02,
       5.22777255e-02, 6.61080543e-02};
-    
+
     float sigma_arr[] = {
       8.12748540e-01, 1.32292795e+00, 1.70726638e+00, 1.74780086e+00,
       2.01806368e+00, 2.23657343e+00, 2.40010333e+00, 2.70710073e+00,
@@ -200,7 +208,7 @@ class LC_LT_t{
       9.64462792e-01, 9.99220744e-01, 9.99288785e-01, 9.99252874e-01,
       9.98562896e-01, 9.77664929e-01};
 
-    float mu_arr[]={ 
+    float mu_arr[] = {
       5.11728114e-01,  2.45073138e+00, 4.52629062e+00,  6.16461776e+00,
       8.18578476e+00,  1.05000674e+01, 1.46462484e+01,  1.84203262e+01,
       2.23414249e+01,  2.50654122e+01, 2.87599971e+01,  3.52318878e+01,
@@ -229,25 +237,23 @@ class LC_LT_t{
       4.00361881e+01,  4.85963348e+01, 6.00490004e+01,  7.16379982e+01,
       8.48249508e+01,  9.56848225e+01, 1.09524905e+02,  1.35669400e+02,
       1.67234082e+02,  1.98382845e+02};
-    
-    float  cInterpC[] = {
-      0.1, 0.15, 0.2, 0.25, 0.3};
 
-    float  cInterpR[] = {
-      1.,          3.,          5.,          7.,          9.,         12.,
-      15.55555534, 20.,         24.,         26.11111069, 30.,        36.66666412,
-      40.,         47.22222137, 57.77777863, 68.33332825, 78.8888855, 89.44444275,
-      100.,        120.,        140.,        160.};
-    
+    float cInterpC[] = {0.1, 0.15, 0.2, 0.25, 0.3};
 
-    //allocates bins and interpolation table
+    float cInterpR[] = {1.,         3.,          5.,          7.,
+                        9.,         12.,         15.55555534, 20.,
+                        24.,        26.11111069, 30.,         36.66666412,
+                        40.,        47.22222137, 57.77777863, 68.33332825,
+                        78.8888855, 89.44444275, 100.,        120.,
+                        140.,       160.};
+
+    // allocates bins and interpolation table
     tau_interp.Initialize(cInterpR, cInterpC, tau_arr, 22, 5);
-    //the ones below allocate their interpolation tables, but just receive a copy of the bins location to avoid duplicate allocation
+    // the ones below allocate their interpolation tables, but just receive a
+    // copy of the bins location to avoid duplicate allocation
     mu_interp.Initialize(&tau_interp, mu_arr);
     sigma_interp.Initialize(&tau_interp, sigma_arr);
     fmsk_interp.Initialize(&tau_interp, fmsk_arr);
     fprj_interp.Initialize(&tau_interp, fprj_arr);
-    
   }
 };
-
