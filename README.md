@@ -14,7 +14,7 @@ in the absence of modules on imbpower9, the following library paths must be set
 # Make MPI libraries available
 export LD_LIBRARY_PATH=/usr/lib64/mpich/lib:$LD_LIBRARY_PATH
 # Make GSL libraries available
-export LD_LIBRARY_PATH=./lib:$LD_LIBRARY_PATH 
+export LD_LIBRARY_PATH=/opt/gsl-2.5/lib:$LD_LIBRARY_PATH
 # Make GCC libraries available
 export LD_LIBRARY_PATH=/usr/local/gcc-6.4.0/lib64:$LD_LIBRARY_PATH
 ```
