@@ -1,5 +1,5 @@
-#include <thrust/device_vector.h>
-#include <thrust/host_vector.h> 
+//#include <thrust/device_vector.h>
+//#include <thrust/host_vector.h> 
 #include "lc_lt_t.h"
 #include "quad/GPUquad/GPUquad.cu"
 #include <chrono>

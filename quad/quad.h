@@ -23,6 +23,8 @@ static int FIRST_PHASE_MAXREGIONS = (1 << 14);
 __constant__ TYPE errcoeff[] = {5, 1, 5};
 
 // Utilities
+
+
 #include "util/cudaArchUtil.h"
 #include "util/cudaDebugUtil.h"
 

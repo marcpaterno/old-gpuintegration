@@ -1,12 +1,11 @@
 #ifndef GPUKERNELQUAD_CU
 #define GPUKERNELQUAD_CU
-
+#include <thrust/host_vector.h>
+#include <thrust/device_vector.h>
 #include "GPUQuadInterp2D.cu"
 #include "GPUQuadPhases.cu"
 #include "GPUQuadRule.cu"
 #include <iostream>
-#include <thrust/host_vector.h>
-#include <thrust/device_vector.h>
 
 __global__ void
 kernel(cudaTextureObject_t texObj, cudaTextureObject_t texObj2)

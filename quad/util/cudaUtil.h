@@ -1,14 +1,22 @@
 #ifndef CUDAUTIL_H
 #define CUDAUTIL_H
 
+
 #include <float.h>
 #include <math.h>
 #include <omp.h>
 #include <stdio.h>
 
+
+#include <thrust/device_vector.h>
+#include <thrust/host_vector.h>
+
 #include "../quad.h"
+
+
 #include "cudaDebugUtil.h"
 #include "../deviceProp.h"
+
 #include <fstream>
 #include <iostream>
 #include <map>

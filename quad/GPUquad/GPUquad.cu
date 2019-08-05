@@ -1,8 +1,11 @@
 #ifndef GPUQUAD_CU
 #define GPUQUAD_CU
 
-#include "../util/cudaMemoryUtil.h"
-#include "../util/cudaTimerUtil.h"
+//#include "../util/cudaMemoryUtil.h"
+//#include "../util/cudaTimerUtil.h"
+//#include <thrust/device_vector.h>
+//#include <thrust/host_vector.h>
+
 #include "../util/cudaUtil.h"
 #include "GPUKernelquad.cu"
 #include "GPUQuadRule.cu"
