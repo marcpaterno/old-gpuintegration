@@ -1,3 +1,6 @@
+#ifndef GPUQUADVOLUME_CU
+#define GPUQUADVOLUME_CU
+
 struct Volume {
 
   cudaTextureObject_t high;
@@ -20,3 +23,5 @@ struct Volume {
     allocText(low, l, 1, dim);
   }
 };
+
+#endif

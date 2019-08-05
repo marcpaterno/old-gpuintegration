@@ -1,6 +1,6 @@
 #ifndef CUDAMEMORYUTIL_H
 #define CUDAMEMORYUTIL_H
-
+#include "cudaDebugUtil.h"
 void
 allocText(cudaTextureObject_t& dest, float table[], int rows, int cols)
 {

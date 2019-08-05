@@ -1,5 +1,8 @@
-#include "GPUQuadVolume.cu"
+#ifndef GPUQUADSAMPLE_CU
+#define GPUQUADSAMPLE_CU
 
+#include "GPUQuadVolume.cu"
+#include "../quad.h"
 namespace quad {
 
   template <typename T>
@@ -217,3 +220,5 @@ namespace quad {
   }
 
 }
+
+#endif

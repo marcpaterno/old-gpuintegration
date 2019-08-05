@@ -1,3 +1,6 @@
+#ifndef GPUQUADPHASES_CU
+#define GPUQUADPHASES_CU
+
 #include "GPUQuadSample.cu"
 
 namespace quad {
@@ -533,3 +536,6 @@ namespace quad {
   }
 
 }
+
+
+#endif

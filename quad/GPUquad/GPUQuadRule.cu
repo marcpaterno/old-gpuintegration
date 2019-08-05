@@ -1,4 +1,5 @@
-
+#ifndef GPUQUADRULE_CU
+#define GPUQUADRULE_CU
 
 namespace quad {
 
@@ -390,3 +391,5 @@ namespace quad {
   };
 
 }
+
+#endif

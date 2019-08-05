@@ -3,7 +3,9 @@
 
 #include "quad/GPUquad/GPUQuadInterp2D.cu"
 //#include "cubacpp/cubacpp.hh"
-#include "../../gpuintegration/integrands/interp_2d.hh"
+#include "integrands/interp_2d.hh"
+#include "quad/GPUquad/GPUquad.cu"
+
 
 struct IntegralGPU {
   typedef quad::Interp2D Interp2D;

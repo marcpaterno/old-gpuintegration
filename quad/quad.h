@@ -1,3 +1,6 @@
+#ifndef QUAD_H
+#define QUAD_H
+
 #define TIMING_DEBUG 1
 #define BLOCK_SIZE 256
 #define SM_REGION_POOL_SIZE 128
@@ -137,3 +140,5 @@ __constant__ size_t cGeneratorCount[NSETS];
 __shared__ TYPE ERR, RESULT;
 __shared__ Region* gPool;
 __shared__ size_t gRegionPos[SM_REGION_POOL_SIZE / 2], gRegionPoolSize;
+
+#endif

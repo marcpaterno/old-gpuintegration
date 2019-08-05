@@ -1,23 +1,7 @@
-#include "function.cu"
+#include <thrust/device_vector.h>
+#include <thrust/host_vector.h> 
 #include "lc_lt_t.h"
 #include "quad/GPUquad/GPUquad.cu"
-#include "quad/quad.h"
-#include "quad/util/cudaUtil.h"
-#include <iomanip>
-#include <mpi.h>
-#include <thrust/device_vector.h>
-#include <thrust/host_vector.h>
-
-/*
-//cubacpp requires c++17 to compile
-#include "cubacpp/array.hh"
-#include "cubacpp/cubacpp.hh"
-#include "cubacpp/cuhre.hh"
-#include "cubacpp/gsl.hh"
-#include "cubacpp/integration_volume.hh"
-#include "lc_lt_t.hh"
-*/
-//#include "CuhreInteface.h"
 #include <chrono>
 
 using namespace quad;

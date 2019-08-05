@@ -1,5 +1,7 @@
 #ifndef CUDATIMERUTIL_H
 #define CUDATIMERUTIL_H
+
+#include <string>
 namespace quad {
   namespace timer {
     struct event_pair {

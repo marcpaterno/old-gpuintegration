@@ -1,8 +1,18 @@
+#ifndef GPUQUAD_CU
+#define GPUQUAD_CU
+
 #include "../util/cudaMemoryUtil.h"
 #include "../util/cudaTimerUtil.h"
+#include "../util/cudaUtil.h"
 #include "GPUKernelquad.cu"
 #include "GPUQuadRule.cu"
 #include <chrono>
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <string>
+#include <map>
+#include <mpi.h>
 namespace quad {
 
 #if TIMING_DEBUG == 1
@@ -714,3 +724,5 @@ namespace quad {
     }
   };
 }
+
+#endif

@@ -1,8 +1,13 @@
+#ifndef CUDAUTIL_H
+#define CUDAUTIL_H
+
 #include <float.h>
 #include <math.h>
 #include <omp.h>
 #include <stdio.h>
 
+#include "../quad.h"
+#include "cudaDebugUtil.h"
 #include "../deviceProp.h"
 #include <fstream>
 #include <iostream>
@@ -206,3 +211,5 @@ public:
 #define Zap(d) memset(d, 0, sizeof(d))
 
 #define MaxErr(avg, epsrel, epsabs) MAX(epsrel* fabs(avg), epsabs)
+
+#endif
