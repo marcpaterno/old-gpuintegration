@@ -17,26 +17,25 @@ class LC_LT_t{
 
   __device__ __host__ ~LC_LT_t(){};
 
-  __device__ float operator()(double xx[], int dim) {    
+  __device__ double operator()(double xx[],int dim) {    
     
-    float f = 0;
-    double highs[3] = {2, .3, 1};
-    double lows[3] =  {1, .1, 0};
-
-    //adjust x values according to range
-    float lt = (highs[0]-lows[0])*xx[0] + lows[0];
-    float zt = (highs[1]-lows[1])*xx[1] + lows[1];
-    float lc = (highs[2]-lows[2])*xx[2] + lows[2];
+    double f = 0;
     
+    double lt= xx[0];
+    double zt = xx[1];
+    double lc = xx[2];
+    
+    //printf("lt:%f ylt:%f | lc:%f  ylc:%f | zt:%f yzt:%f\n", lt, ylt, lc, ylc, zt, yzt);
+    //printf("lt:%f zt:%f lc:%f\n", lt, zt, lc);
     float tau = tau_interp(lt, zt);
     float mu  = mu_interp(lt, zt);
     float sigma = sigma_interp(lt, zt);
     float fmsk = fmsk_interp(lt, zt);
-    double fprj = fprj_interp(lt, zt);
+    float fprj = fprj_interp(lt, zt);
     
-    float exptau = exp(tau * (2.0 * mu + tau * sigma * sigma - 2.0 * lc) / 2.0);
-    float root_two_sigma = sqrt(2.0) * sigma;
-    float mu_tau_sig_sqr = mu + tau * sigma * sigma;
+    double exptau = exp(tau * (2.0 * mu + tau * sigma * sigma - 2.0 * lc) / 2.0);
+    double root_two_sigma = sqrt(2.0) * sigma;
+    double mu_tau_sig_sqr = mu + tau * sigma * sigma;
     
     f = (1.0 - fmsk) * (1.0 - fprj) * gaussian(lc, mu, sigma) +
       0.5 * ((1.0 - fmsk) * fprj * tau + fmsk * fprj / lt) * exptau * erfc_scaled(mu_tau_sig_sqr, lc, root_two_sigma) +
@@ -44,11 +43,39 @@ class LC_LT_t{
       0.5 * fmsk * fprj / lt *(exp(-tau * lt) * exptau * erfc_scaled(mu_tau_sig_sqr, lc + lt, root_two_sigma));
     
     
-    for(int i=0; i<dim; i++)
-    f *= (highs[i]-lows[i]);
-    
     return f;
   }
+
+  __device__ double operator()(double lt, double zt, double lc, int dim) {
+
+    double f = 0;
+
+    /*double lt= xx[0];
+    double zt = xx[1];
+    double lc = xx[2];*/
+    //printf("lt:%f ylt:%f | lc:%f  ylc:%f | zt:%f yzt:%f\n", lt, ylt, lc, ylc, zt, yzt);
+    //printf("lt:%f zt:%f lc:%f\n", lt, zt, lc);
+    float tau = tau_interp(lt, zt);
+    float mu  = mu_interp(lt, zt);
+    float sigma = sigma_interp(lt, zt);
+    float fmsk = fmsk_interp(lt, zt);
+    float fprj = fprj_interp(lt, zt);
+
+    double exptau = exp(tau * (2.0 * mu + tau * sigma * sigma - 2.0 * lc) / 2.0);
+    double root_two_sigma = sqrt(2.0) * sigma;
+    double mu_tau_sig_sqr = mu + tau * sigma * sigma;
+
+    f = (1.0 - fmsk) * (1.0 - fprj) * gaussian(lc, mu, sigma) +
+      0.5 * ((1.0 - fmsk) * fprj * tau + fmsk * fprj / lt) * exptau * erfc_scaled(mu_tau_sig_sqr, lc,root_two_sigma) +
+      0.5 * fmsk / lt * (erfc_scaled(lc, mu, root_two_sigma) - erfc_scaled(lc + lt, mu, root_two_sigma)) -
+      0.5 * fmsk * fprj / lt *(exp(-tau * lt) * exptau * erfc_scaled(mu_tau_sig_sqr, lc + lt, root_two_sigma));
+
+
+    return f;
+  }
+
+
+
 
  LC_LT_t()
   {
@@ -216,7 +243,7 @@ class LC_LT_t{
     //allocates bins and interpolation table
     tau_interp.Initialize(cInterpR, cInterpC, tau_arr, 22, 5);
     //the ones below allocate their interpolation tables, but just receive a copy of the bins location to avoid duplicate allocation
-     mu_interp.Initialize(&tau_interp, mu_arr);
+    mu_interp.Initialize(&tau_interp, mu_arr);
     sigma_interp.Initialize(&tau_interp, sigma_arr);
     fmsk_interp.Initialize(&tau_interp, fmsk_arr);
     fprj_interp.Initialize(&tau_interp, fprj_arr);

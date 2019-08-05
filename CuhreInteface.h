@@ -3,7 +3,7 @@
 
 #include "quad/GPUquad/GPUQuadInterp2D.cu"
 //#include "cubacpp/cubacpp.hh"
-#include "integrands/interp_2d.hh"
+#include "../../gpuintegration/integrands/interp_2d.hh"
 
 
 struct IntegralGPU{
@@ -15,6 +15,7 @@ struct IntegralCPU{
   typedef y3_cluster::Interp2D Interp2D;
   //typedef cubacpp::Cuhre Cuhre; //c++17 required
 };
+
 
 __device__ double gaussian(double x, double mu, double sigma)
 {
