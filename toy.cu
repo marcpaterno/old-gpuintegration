@@ -4,10 +4,9 @@
 #include <thrust/device_vector.h>
 #include <thrust/host_vector.h>
 #include <tuple>
-//#include <experimental/tuple>
+#include <experimental/tuple>
 #include <type_traits>
 #include <utility>
-// using namespace std;
 #include <iostream>
 
 namespace gpu {
@@ -38,72 +37,78 @@ namespace gpu {
   };
 };
 
-__host__ __device__ void
+__host__ __device__ double
 foo(double x, double y, double z)
 {
+  
   printf("x:%f y:%f z:%f\n", x, y, z);
+  return x+y+z;
 }
 
-namespace std {
-  template <std::size_t index, typename T, std::size_t s>
-  __device__ __host__ constexpr T&
-  get(gpu::cuArray<T, s>& x) noexcept
-  {
-    return x[index];
-  }
+// class Test {
+// public:
+// __host__ __device__
+// Test()
+// {}
+// __host__ __device__ // Test(int r)
+// {
+//   rows = r;
+// }
+// __host__ __device__ double
+// operator()(double x, double y, double z) const
+// {
+//   printf("rows:%i\n", rows);
+//   return 0.0;
+// }
+// int rows;
+// };
 
-  template <std::size_t index, typename T, std::size_t s>
-  __device__ __host__ constexpr T const&
-  get(gpu::cuArray<T, s> const& x) noexcept
-  {
-    return x[index];
-  }
+namespace gpu {
 
-  template <std::size_t index, typename T, std::size_t s>
-  __device__ __host__ constexpr T&&
-  get(gpu::cuArray<T, s>&& x) noexcept
-  {
-    return std::move(x[index]);
+  namespace detail {
+    template <class F, size_t N, std::size_t... I>
+    __device__ double
+    apply_impl(F&& f, gpu::cuArray<double, N> const& data, std::index_sequence<I...>) {
+      return f(data[I]...);
+    };
   }
-
-  template <class T, std::size_t N>
-  class tuple_size<gpu::cuArray<T, N>>
-    : public std::integral_constant<std::size_t, N> {};
-};
-#include <experimental/tuple>
-
-class Test {
-public:
-  __host__ __device__
-  Test()
-  {}
-  __host__ __device__
-  Test(int r)
-  {
-    rows = r;
+  
+  template <class F, size_t N>
+  __device__ double
+  // Unsure if we need to pass 'f' by value, for GPU execution
+  apply(F&& f, gpu::cuArray<double, N> const& data) {
+    return detail::apply_impl(std::forward<F>(f), data, std::make_index_sequence<N>());
   }
-  __host__ __device__ double
-  operator()(double x, double y, double z) const
-  {
-    printf("rows:%i\n", rows);
-  }
-  int rows;
-};
+}
 
 __global__ void
-kernelApply()
+toyKernel(gpu::cuArray<double, 3> const* args, double* result)
 {
-  gpu::cuArray<double, 3> arr = {1, 2, 3};
-  std::apply(foo, arr);
+  *result = gpu::apply(foo, *args);
+}
+
+double execute_sample(std::array<double, 3> const& args) {
+ gpu::cuArray<double, 3>* d_args;
+ std::size_t const nbytes = args.size()*sizeof(double);
+ cudaMalloc((void**)&d_args, nbytes);
+ cudaMemcpy(d_args,  args.data(), nbytes, cudaMemcpyHostToDevice);
+ double* d_answer; 
+ cudaMalloc((void**)&d_answer, sizeof(double));
+ toyKernel<<<1,1>>>(d_args, d_answer);
+ cudaDeviceSynchronize();
+ cudaFree(d_args);
+ double answer = -1.0;
+ cudaMemcpy(&answer, d_answer, sizeof(double), cudaMemcpyDeviceToHost);
+ cudaFree(d_answer);
+ return answer; 
 }
 
 int
 main()
 {
-  Test t;
-  gpu::cuArray<double, 3> arr = {1, 2, 3};
-  std::array<double, 3> arr2 = {1, 2, 3};
-  std::apply(foo, arr);
-  cudaDeviceSynchronize();
+  // Test t;
+  std::array<double, 3> cpuarray = {1, 2, 3};
+  std::cout << execute_sample(cpuarray) << '\n';
+  std::experimental::apply(foo, cpuarray);
   return 0;
 }
