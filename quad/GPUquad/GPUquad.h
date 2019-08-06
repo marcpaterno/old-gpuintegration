@@ -10,12 +10,12 @@
 #include "GPUKernelquad.cu"
 #include "GPUQuadRule.cu"
 #include <chrono>
-#include <iostream>
 #include <fstream>
-#include <vector>
-#include <string>
+#include <iostream>
 #include <map>
 #include <mpi.h>
+#include <string>
+#include <vector>
 namespace quad {
 
 #if TIMING_DEBUG == 1

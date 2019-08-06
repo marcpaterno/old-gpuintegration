@@ -1,7 +1,7 @@
 #ifndef CUDADEBUGUTIL_H
 #define CUDADEBUGUTIL_H
-#include <iostream>
 #include "cudaArchUtil.h"
+#include <iostream>
 #include <stdio.h>
 
 namespace quad {

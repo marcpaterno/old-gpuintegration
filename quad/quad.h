@@ -24,7 +24,6 @@ __constant__ TYPE errcoeff[] = {5, 1, 5};
 
 // Utilities
 
-
 #include "util/cudaArchUtil.h"
 #include "util/cudaDebugUtil.h"
 
@@ -127,14 +126,14 @@ __constant__ int gpuGenPermVarCount[FEVAL];
 __constant__ int
   gpuGenPermVarStart[FEVAL +
                      1]; //+1 to make sure we have an entry for ending position
-                         //of last element or starting position of last+1
+                         // of last element or starting position of last+1
 #else
 __device__ int gpuGenPermGIndex[FEVAL];
 __device__ int gpuGenPermVarCount[FEVAL];
 __device__ int
   gpuGenPermVarStart[FEVAL +
                      1]; //+1 to make sure we have an entry for ending position
-                         //of last element or starting position of last+1
+                         // of last element or starting position of last+1
 #endif
 
 __constant__ size_t cGeneratorCount[NSETS];

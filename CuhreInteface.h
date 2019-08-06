@@ -6,7 +6,6 @@
 #include "integrands/interp_2d.hh"
 #include "quad/GPUquad/GPUquad.h"
 
-
 struct IntegralGPU {
   typedef quad::Interp2D Interp2D;
   typedef quad::GPUcuhre<double> Cuhre;

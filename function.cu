@@ -159,41 +159,41 @@ IntegrandFunc(const T xx[], int NDIM)
 
   /*T highs[3] = {2, .3, 1};
         T lows[3] =  {1, .1, 0};
-        
-        
-        
+        
+        
+        
         //adjust x values according to range
          T lt = (highs[0]-lows[0])*xx[0] + lows[0];
          T zt = (highs[1]-lows[1])*xx[1] + lows[1];
          T lc = (highs[2]-lows[2])*xx[2] + lows[2];
-         
+         
          //test interpolation values
          //lt = 2;
         // zt = .12;
-        
+        
          T tau 		=  	Interp(lt, zt, interpT, interpR, interpC, 0);
          T mu 		= 	Interp(lt, zt, interpT, interpR, interpC, 1);
      T sigma 	=	Interp(lt, zt, interpT, interpR, interpC, 2);
      T fmsk 	= 	Interp(lt, zt, interpT, interpR, interpC, 3);
      T fprj 	=	Interp(lt, zt, interpT, interpR, interpC, 4);
-         
+         
          if(threadIdx.x == 0 && blockIdx.x==0)
          {
                  printf("tau:%f mu:%f sigma:%f fmsk:%f fprj:%f\n", tau, mu,
      sigma, fmsk, fprj);
          }
-                
+                
          T exptau = exp(tau * (2.0 * mu + tau * sigma * sigma - 2.0 * lc)
      / 2.0); T root_two_sigma = sqrt(2.0) * sigma; T mu_tau_sig_sqr = mu + tau *
      sigma * sigma;
-         
+         
      f = (1.0 - fmsk) * (1.0 - fprj) * gaussian(lc, mu, sigma) +
               0.5 * ((1.0 - fmsk) * fprj * tau + fmsk * fprj / lt) * exptau *
      erfc_scaled(mu_tau_sig_sqr, lc, root_two_sigma) + 0.5 * fmsk / lt *
      (erfc_scaled(lc, mu, root_two_sigma) - erfc_scaled(lc + lt, mu,
      root_two_sigma)) - 0.5 * fmsk * fprj / lt *(exp(-tau * lt) * exptau *
      erfc_scaled(mu_tau_sig_sqr, lc + lt, root_two_sigma));
-        
+        
         for(int i=0; i<DIM; i++)
                 f *= (highs[i]-lows[i]);
 */

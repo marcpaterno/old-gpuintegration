@@ -85,14 +85,12 @@ namespace quad {
 
       float q11, q12, q21, q22; // Function values for interpolation points
       int offset = 0;
-      //removed reliance on compile time variable about interpolation table
+      // removed reliance on compile time variable about interpolation table
       q11 = tex2D<float>(interpT, y1_index, x1_index + (offset * _cols));
-      q12 =
-        tex2D<float>(interpT, y1_index + 1, x1_index + (offset * _cols));
-      q21 =
-        tex2D<float>(interpT, y1_index, x1_index + 1 + (offset * _cols));
-      q22 = tex2D<float>(
-        interpT, y1_index + 1, x1_index + 1 + (offset * _cols));
+      q12 = tex2D<float>(interpT, y1_index + 1, x1_index + (offset * _cols));
+      q21 = tex2D<float>(interpT, y1_index, x1_index + 1 + (offset * _cols));
+      q22 =
+        tex2D<float>(interpT, y1_index + 1, x1_index + 1 + (offset * _cols));
 
       double t1 = (x2 - x) / ((x2 - x1) * (y2 - y1));
       double t2 = (x - x1) / ((x2 - x1) * (y2 - y1));

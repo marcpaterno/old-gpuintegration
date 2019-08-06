@@ -1,11 +1,11 @@
 #ifndef GPUKERNELQUAD_CU
 #define GPUKERNELQUAD_CU
-#include <thrust/host_vector.h>
-#include <thrust/device_vector.h>
 #include "GPUQuadInterp2D.cu"
 #include "GPUQuadPhases.cu"
 #include "GPUQuadRule.cu"
 #include <iostream>
+#include <thrust/device_vector.h>
+#include <thrust/host_vector.h>
 
 __global__ void
 kernel(cudaTextureObject_t texObj, cudaTextureObject_t texObj2)
@@ -496,9 +496,9 @@ namespace quad {
         dRegionsLength = genRegionsLength;
         // TODO: throws error
         // QuadDebug(cudaMemcpy(dRegions, genRegions, sizeof(T) * numRegions *
-        // NDIM, cudaMemcpyDeviceToDevice)); QuadDebug(cudaMemcpy(dRegionsLength,
-        // genRegionsLength, sizeof(T) * numRegions * NDIM,
-        // cudaMemcpyDeviceToDevice));
+        // NDIM, cudaMemcpyDeviceToDevice));
+        // QuadDebug(cudaMemcpy(dRegionsLength, genRegionsLength, sizeof(T) *
+        // numRegions * NDIM, cudaMemcpyDeviceToDevice));
       } else {
         numRegions = 0;
       }

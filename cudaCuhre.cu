@@ -1,5 +1,5 @@
 //#include <thrust/device_vector.h>
-//#include <thrust/host_vector.h> 
+//#include <thrust/host_vector.h>
 #include "lc_lt_t.h"
 #include "quad/GPUquad/GPUquad.h"
 #include <chrono>
@@ -50,8 +50,8 @@ main(int argc, char** argv)
   Volume vol(lows, highs, 3);
 
   // int errorFlag = cuhre->integrate(epsrel, epsabs, integral, error, nregions,
-  // neval, &t, &vol); int errorFlag = cuhre->integrate(epsrel, epsabs, integral,
-  // error, nregions, neval, &t);
+  // neval, &t, &vol); int errorFlag = cuhre->integrate(epsrel, epsabs,
+  // integral, error, nregions, neval, &t);
   int errorFlag =
     cuhre.integrate(epsrel, epsabs, integral, error, nregions, neval, &t, &vol);
   printf("%d\t%e\t%.10lf\t%.10f\t%ld\t%ld\t%d\n",
