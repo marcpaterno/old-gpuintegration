@@ -4,7 +4,7 @@
 #include "quad/GPUquad/GPUQuadInterp2D.cu"
 //#include "cubacpp/cubacpp.hh"
 #include "integrands/interp_2d.hh"
-#include "quad/GPUquad/GPUquad.cu"
+#include "quad/GPUquad/GPUquad.h"
 
 
 struct IntegralGPU {

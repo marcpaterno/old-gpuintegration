@@ -1,18 +1,23 @@
-# Add source files here
-EXECUTABLE      := output 
-# Cuda source files 
-CUFILES         := cudaCuhre.cu integrands/interp_2d.cc
+NVCC=/usr/local/cuda-10.0/bin/nvcc -x cu
+CCFLAGS=-arch=sm_70 \
+        -std=c++14 \
+        -I /usr/include/mpich-ppc64le \
+        -I /opt/gsl-2.5/include \
+        -Xcompiler -fopenmp
 
-NVCC            := /usr/local/cuda-10.0/bin/nvcc
-CCFLAGS         := -lgomp -Xcompiler -fopenmp -arch=sm_70 -std=c++14
-INCLUDE  	:= -I /usr/include/mpich-ppc64le/ -I include -I /opt/gsl-2.5/include
-LIBS     	:= -L/usr/local/gcc-6.4.0/lib -L/usr/lib64/mpich/lib -lmpich -L lib/ -lgsl -lgslcblas 
+LDFLAGS=-L/usr/local/gcc-6.4.0/lib -L/usr/lib64/mpich/lib -lmpich -lgomp
 
-${EXECUTABLE}: ${CUFILES}
-	${NVCC} -x cu -o ${EXECUTABLE} ${INCLUDE} ${LIBS} ${CCFLAGS} ${CUFILES}
+all: cudaCuhre toy
+
+toy: toy.cu
+	$(NVCC) $(CCFLAGS) -o $@ $< $(LDFLAGS)
+
+cudaCuhre: cudaCuhre.cu lc_lt_t.h quad/GPUquad/GPUquad.h
+	$(NVCC) $(CCFLAGS) -o $@ $< $(LDFLAGS)
+
 clean:
-	-$(RM)	${EXECUTABLE}\
-	*.o *.*log
+	rm -f cudaCuhre toy *.o *.log
+
 run:
-	./output
+	./cudaCuhre
 
